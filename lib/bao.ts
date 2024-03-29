@@ -159,7 +159,7 @@ export class Bao {
       async fetch(req: Request, server: Server) {
         let ctx = new Context(req, server);
         const res = await router.handle(ctx);
-        return res.status === 404 ? notFoundHandler(ctx) : res;
+        return [404, null].some((x) => x == res?.status) ? notFoundHandler(ctx) : res;
       },
       error(error: Error) {
         return errorHandler(error);
